@@ -1,5 +1,4 @@
 
-// pull.js
 import fs from "fs";
 import path from "path";
 
@@ -7,82 +6,93 @@ const ROOT = "/home/bilal-tariq/00--TALEEM===>/taleem-workshop";
 const ARCHIVE = path.join(ROOT, "archive");
 const STAGE = path.join(ROOT, "stage");
 
-const deckName = process.argv[2];
+const archiveDeckDir = path.join(ARCHIVE, "decks");
+const archiveAudioDir = path.join(ARCHIVE, "audio");
 
-if (!deckName) {
-  console.error("❌ Provide deck name. Example: node pull.js my-deck.json");
-  process.exit(1);
-}
+const stageDeckDir = path.join(STAGE, "decks");
+const stageAudioDir = path.join(STAGE, "audio");
+const stageImageDir = path.join(STAGE, "images");
 
-// Ensure stage is empty
-function ensureStageEmpty() {
-  const folders = ["decks", "audio", "images"];
+// --------------------------------------------------
+// 1️⃣ Ensure stage is completely clean
+// --------------------------------------------------
+
+function ensureStageClean() {
+  const folders = [stageDeckDir, stageAudioDir, stageImageDir];
+
   for (const folder of folders) {
-    const files = fs.readdirSync(path.join(STAGE, folder));
+    const files = fs.readdirSync(folder);
     if (files.length > 0) {
-      console.error("❌ Stage not empty. Finish current session first.");
+      console.error("❌ Stage is not empty. Finish current session first.");
       process.exit(1);
     }
   }
 }
 
-// Extract image references from deck JSON
-function extractImages(deckPath) {
-  const deck = JSON.parse(fs.readFileSync(deckPath, "utf-8"));
-  const images = new Set();
+// --------------------------------------------------
+// 2️⃣ Get audio filename from deck (isolated logic)
+// --------------------------------------------------
 
-  if (!deck.deck) return [];
-
-  for (const slide of deck.deck) {
-    if (!slide.data) continue;
-
-    for (const item of slide.data) {
-      if (item.content && item.content.match(/\.(png|jpg|jpeg|svg|webp)$/)) {
-        images.add(item.content);
-      }
-    }
+function getAudioFilename(deck) {
+  if (!deck.audio || typeof deck.audio !== "string") {
+    return null;
   }
 
-  return Array.from(images);
+  // If someone stored full path like "audio/abc.opus"
+  // we only want filename
+  return deck.audio.split("/").pop();
 }
 
-ensureStageEmpty();
+// --------------------------------------------------
+// MAIN
+// --------------------------------------------------
 
-const archiveDeckPath = path.join(ARCHIVE, "decks", deckName);
-const stageDeckPath = path.join(STAGE, "decks", deckName);
+const deckNameArg = process.argv[2];
 
-if (!fs.existsSync(archiveDeckPath)) {
-  console.error("❌ Deck not found in archive.");
+if (!deckNameArg) {
+  console.error("❌ Usage: npm run pull abc");
   process.exit(1);
 }
 
-// MOVE deck
-fs.renameSync(archiveDeckPath, stageDeckPath);
-console.log("✅ Deck moved to stage");
+ensureStageClean();
 
-// MOVE audio if exists
-const audioName = deckName.replace(".json", ".mp3");
-const archiveAudioPath = path.join(ARCHIVE, "audio", audioName);
-const stageAudioPath = path.join(STAGE, "audio", audioName);
+const deckFile = deckNameArg + ".json";
 
-if (fs.existsSync(archiveAudioPath)) {
-  fs.renameSync(archiveAudioPath, stageAudioPath);
-  console.log("✅ Audio moved to stage");
+const archiveDeckPath = path.join(archiveDeckDir, deckFile);
+const stageDeckPath = path.join(stageDeckDir, deckFile);
+
+if (!fs.existsSync(archiveDeckPath)) {
+  console.error("❌ Deck not found in archive:", deckFile);
+  process.exit(1);
 }
 
-// COPY images
-const images = extractImages(stageDeckPath);
+// --------------------------------------------------
+// 3️⃣ Move deck
+// --------------------------------------------------
 
-for (const img of images) {
-  const archiveImg = path.join(ARCHIVE, "images", img);
-  const stageImg = path.join(STAGE, "images", img);
+fs.renameSync(archiveDeckPath, stageDeckPath);
+console.log("📦 Deck moved:", deckFile);
 
-  if (fs.existsSync(archiveImg)) {
-    fs.copyFileSync(archiveImg, stageImg);
-    console.log("📷 Copied image:", img);
+// --------------------------------------------------
+// 4️⃣ Move audio (if defined in deck.audio)
+// --------------------------------------------------
+
+const deck = JSON.parse(fs.readFileSync(stageDeckPath, "utf-8"));
+
+const audioFile = getAudioFilename(deck);
+
+if (audioFile) {
+  const archiveAudioPath = path.join(archiveAudioDir, audioFile);
+  const stageAudioPath = path.join(stageAudioDir, audioFile);
+
+  if (fs.existsSync(archiveAudioPath)) {
+    fs.renameSync(archiveAudioPath, stageAudioPath);
+    console.log("🎧 Audio moved:", audioFile);
   } else {
-    console.warn("⚠ Image missing in archive:", img);
+    console.warn("⚠ Audio referenced but not found in archive:", audioFile);
   }
+} else {
+  console.log("ℹ No audio defined in deck.");
 }
 
 console.log("🚀 Pull complete.");

@@ -5,7 +5,8 @@
    "type": "module",
   "main": "index.js",
   "scripts": {
-    "push": "node ./scripts/push.js"
+    "push": "node ./scripts/push.js",
+    "pull": "node ./scripts/pull.js"
   },
   "keywords": [],
   "author": "",
