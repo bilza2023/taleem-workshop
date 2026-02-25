@@ -1,6 +1,8 @@
 
+
 import fs from "fs";
 import path from "path";
+import { getDeckImages } from "./getDeckImages.js";
 
 const ROOT = "/home/bilal-tariq/00--TALEEM===>/taleem-workshop";
 const ARCHIVE = path.join(ROOT, "archive");
@@ -8,13 +10,14 @@ const STAGE = path.join(ROOT, "stage");
 
 const archiveDeckDir = path.join(ARCHIVE, "decks");
 const archiveAudioDir = path.join(ARCHIVE, "audio");
+const archiveImageDir = path.join(ARCHIVE, "images");
 
 const stageDeckDir = path.join(STAGE, "decks");
 const stageAudioDir = path.join(STAGE, "audio");
 const stageImageDir = path.join(STAGE, "images");
 
 // --------------------------------------------------
-// 1️⃣ Ensure stage is completely clean
+// 1️⃣ Ensure stage is clean
 // --------------------------------------------------
 
 function ensureStageClean() {
@@ -30,7 +33,7 @@ function ensureStageClean() {
 }
 
 // --------------------------------------------------
-// 2️⃣ Get audio filename from deck (isolated logic)
+// 2️⃣ Get audio filename from deck
 // --------------------------------------------------
 
 function getAudioFilename(deck) {
@@ -38,8 +41,6 @@ function getAudioFilename(deck) {
     return null;
   }
 
-  // If someone stored full path like "audio/abc.opus"
-  // we only want filename
   return deck.audio.split("/").pop();
 }
 
@@ -74,10 +75,14 @@ fs.renameSync(archiveDeckPath, stageDeckPath);
 console.log("📦 Deck moved:", deckFile);
 
 // --------------------------------------------------
-// 4️⃣ Move audio (if defined in deck.audio)
+// 4️⃣ Parse deck
 // --------------------------------------------------
 
 const deck = JSON.parse(fs.readFileSync(stageDeckPath, "utf-8"));
+
+// --------------------------------------------------
+// 5️⃣ Move audio (if defined)
+// --------------------------------------------------
 
 const audioFile = getAudioFilename(deck);
 
@@ -89,10 +94,28 @@ if (audioFile) {
     fs.renameSync(archiveAudioPath, stageAudioPath);
     console.log("🎧 Audio moved:", audioFile);
   } else {
-    console.warn("⚠ Audio referenced but not found in archive:", audioFile);
+    console.warn("⚠ Audio referenced but not found:", audioFile);
   }
 } else {
   console.log("ℹ No audio defined in deck.");
+}
+
+// --------------------------------------------------
+// 6️⃣ Copy images
+// --------------------------------------------------
+
+const images = getDeckImages(deck);
+
+for (const img of images) {
+  const archiveImgPath = path.join(archiveImageDir, img);
+  const stageImgPath = path.join(stageImageDir, img);
+
+  if (fs.existsSync(archiveImgPath)) {
+    fs.copyFileSync(archiveImgPath, stageImgPath);
+    console.log("🖼 Image copied:", img);
+  } else {
+    console.warn("⚠ Image referenced but not found:", img);
+  }
 }
 
 console.log("🚀 Pull complete.");
