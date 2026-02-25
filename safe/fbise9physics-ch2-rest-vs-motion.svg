@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+
+  <defs>
+    <pattern id="grid" patternUnits="userSpaceOnUse" width="8" height="8">
+      <path d="M8 0 L0 0 0 8" fill="none" stroke="white" stroke-width="0.5" opacity="0.05"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="500" height="500" fill="#0b1a3a"/>
+  <rect x="0" y="0" width="500" height="500" fill="url(#grid)"/>
+
+  <!-- Vertical Divider -->
+  <line x1="250" y1="40" x2="250" y2="460" stroke="white" stroke-width="1"/>
+
+  <!-- ===== LEFT HALF : REST ===== -->
+
+  <!-- Ground -->
+  <line x1="30" y1="330" x2="220" y2="330" stroke="white" stroke-width="1"/>
+
+  <!-- Reference Point -->
+  <circle cx="50" cy="330" r="4" fill="white"/>
+  <text x="60" y="325" fill="white" font-family="monospace" font-size="14">
+    Reference Point
+  </text>
+
+  <!-- Time Markers -->
+  <line x1="90" y1="70" x2="90" y2="330" stroke="white" stroke-width="1" stroke-dasharray="6,6"/>
+  <line x1="130" y1="70" x2="130" y2="330" stroke="white" stroke-width="1" stroke-dasharray="6,6"/>
+  <line x1="170" y1="70" x2="170" y2="330" stroke="white" stroke-width="1" stroke-dasharray="6,6"/>
+
+  <text x="82" y="55" fill="white" font-family="monospace" font-size="16">t₁</text>
+  <text x="122" y="55" fill="white" font-family="monospace" font-size="16">t₂</text>
+  <text x="162" y="55" fill="white" font-family="monospace" font-size="16">t₃</text>
+
+  <!-- Arrow (Same Position) -->
+  <line x1="110" y1="290" x2="150" y2="290" stroke="white" stroke-width="1"/>
+  <polygon points="150,290 143,286 143,294" fill="white"/>
+
+  <!-- Caption -->
+  <text x="125" y="400" text-anchor="middle" fill="white" font-family="monospace" font-size="18">
+    Rest
+  </text>
+  <text x="125" y="425" text-anchor="middle" fill="white" font-family="monospace" font-size="16">
+    Position does not change.
+  </text>
+
+  <!-- ===== RIGHT HALF : MOTION ===== -->
+
+  <!-- Ground -->
+  <line x1="280" y1="330" x2="470" y2="330" stroke="white" stroke-width="1"/>
+
+  <!-- Reference Point -->
+  <circle cx="300" cy="330" r="4" fill="white"/>
+  <text x="310" y="325" fill="white" font-family="monospace" font-size="14">
+    Reference Point
+  </text>
+
+  <!-- Time Markers -->
+  <line x1="340" y1="70" x2="340" y2="330" stroke="white" stroke-width="1" stroke-dasharray="6,6"/>
+  <line x1="380" y1="70" x2="380" y2="330" stroke="white" stroke-width="1" stroke-dasharray="6,6"/>
+  <line x1="420" y1="70" x2="420" y2="330" stroke="white" stroke-width="1" stroke-dasharray="6,6"/>
+
+  <text x="332" y="55" fill="white" font-family="monospace" font-size="16">t₁</text>
+  <text x="372" y="55" fill="white" font-family="monospace" font-size="16">t₂</text>
+  <text x="412" y="55" fill="white" font-family="monospace" font-size="16">t₃</text>
+
+  <!-- Arrows Moving -->
+  <!-- t₁ -->
+  <line x1="320" y1="290" x2="350" y2="290" stroke="white" stroke-width="1"/>
+  <polygon points="350,290 343,286 343,294" fill="white"/>
+
+  <!-- t₂ -->
+  <line x1="360" y1="290" x2="390" y2="290" stroke="white" stroke-width="1"/>
+  <polygon points="390,290 383,286 383,294" fill="white"/>
+
+  <!-- t₃ -->
+  <line x1="400" y1="290" x2="430" y2="290" stroke="white" stroke-width="1"/>
+  <polygon points="430,290 423,286 423,294" fill="white"/>
+
+  <!-- Caption -->
+  <text x="375" y="400" text-anchor="middle" fill="white" font-family="monospace" font-size="18">
+    Motion
+  </text>
+  <text x="375" y="425" text-anchor="middle" fill="white" font-family="monospace" font-size="16">
+    Position changes with time.
+  </text>
+
+  <!-- Watermark -->
+  <text x="420" y="485" fill="white" font-family="monospace" font-size="12" opacity="0.4">
+    taleem.help
+  </text>
+
+</svg>

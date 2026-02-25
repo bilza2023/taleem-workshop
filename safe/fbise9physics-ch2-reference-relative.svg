@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+
+  <defs>
+    <pattern id="grid" patternUnits="userSpaceOnUse" width="8" height="8">
+      <path d="M8 0 L0 0 0 8" fill="none" stroke="white" stroke-width="0.5" opacity="0.05"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="500" height="500" fill="#0b1a3a"/>
+  <rect width="500" height="500" fill="url(#grid)"/>
+
+  <!-- Section Dividers (Very Faint) -->
+  <line x1="166.7" y1="60" x2="166.7" y2="440" stroke="white" stroke-width="1" opacity="0.15"/>
+  <line x1="333.3" y1="60" x2="333.3" y2="440" stroke="white" stroke-width="1" opacity="0.15"/>
+
+  <!-- LEFT SECTION : Observer A -->
+  <rect x="70" y="200" width="60" height="45" fill="none" stroke="white" stroke-width="1"/>
+  <polygon points="70,200 100,170 130,200" fill="none" stroke="white" stroke-width="1"/>
+  <text x="100" y="150" text-anchor="middle" fill="white" font-family="monospace" font-size="16">
+    Observer A
+  </text>
+  <text x="100" y="270" text-anchor="middle" fill="white" font-family="monospace" font-size="14">
+    At rest relative to A
+  </text>
+
+  <!-- CENTER SECTION : Car on Road -->
+  <line x1="180" y1="300" x2="320" y2="300" stroke="white" stroke-width="1"/>
+  <rect x="220" y="270" width="60" height="20" fill="none" stroke="white" stroke-width="1"/>
+  <circle cx="235" cy="295" r="6" fill="none" stroke="white" stroke-width="1"/>
+  <circle cx="265" cy="295" r="6" fill="none" stroke="white" stroke-width="1"/>
+
+  <!-- RIGHT SECTION : Observer B -->
+  <rect x="395" y="220" width="6" height="35" fill="none" stroke="white" stroke-width="1"/>
+  <circle cx="398" cy="200" r="18" fill="none" stroke="white" stroke-width="1"/>
+  <text x="398" y="160" text-anchor="middle" fill="white" font-family="monospace" font-size="16">
+    Observer B
+  </text>
+  <text x="398" y="270" text-anchor="middle" fill="white" font-family="monospace" font-size="14">
+    In motion relative to B
+  </text>
+
+  <!-- Bottom Caption -->
+  <text x="250" y="455" text-anchor="middle" fill="white" font-family="monospace" font-size="16">
+    Motion depends on the reference point.
+  </text>
+
+  <!-- Watermark -->
+  <text x="420" y="485" fill="white" font-family="monospace" font-size="12" opacity="0.4">
+    taleem.help
+  </text>
+
+</svg>

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+
+  <defs>
+    <pattern id="grid" patternUnits="userSpaceOnUse" width="8" height="8">
+      <path d="M8 0 L0 0 0 8" fill="none" stroke="white" stroke-width="0.5" opacity="0.05"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="500" height="500" fill="#0b1a3a"/>
+  <rect width="500" height="500" fill="url(#grid)"/>
+
+  <!-- Icons -->
+  <text x="125" y="250" text-anchor="middle" fill="white" font-family="monospace" font-size="64">📍</text>
+  <text x="250" y="250" text-anchor="middle" fill="white" font-family="monospace" font-size="64">🚗</text>
+  <text x="375" y="250" text-anchor="middle" fill="white" font-family="monospace" font-size="64">⏱️</text>
+
+  <!-- Caption -->
+  <text x="250" y="320" text-anchor="middle" fill="white" font-family="monospace" font-size="22">
+    Change in position over time
+  </text>
+
+  <!-- Watermark -->
+  <text x="420" y="485" fill="white" font-family="monospace" font-size="12" opacity="0.4">
+    taleem.help
+  </text>
+
+</svg>

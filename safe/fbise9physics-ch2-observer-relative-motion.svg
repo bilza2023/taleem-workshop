@@ -1,0 +1,47 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+
+  <defs>
+    <pattern id="grid" patternUnits="userSpaceOnUse" width="8" height="8">
+      <path d="M8 0 L0 0 0 8" fill="none" stroke="white" stroke-width="0.5" opacity="0.05"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="500" height="500" fill="#0b1a3a"/>
+  <rect width="500" height="500" fill="url(#grid)"/>
+
+  <!-- Divider -->
+  <line x1="60" y1="250" x2="440" y2="250" stroke="white" stroke-width="1" opacity="0.2"/>
+
+  <!-- TOP SECTION -->
+  <!-- Time Labels -->
+  <text x="150" y="80" text-anchor="middle" fill="white" font-family="monospace" font-size="18">t₁</text>
+  <text x="250" y="80" text-anchor="middle" fill="white" font-family="monospace" font-size="18">t₂</text>
+  <text x="350" y="80" text-anchor="middle" fill="white" font-family="monospace" font-size="18">t₃</text>
+
+  <!-- Cars (Same Position) -->
+  <text x="250" y="150" text-anchor="middle" fill="white" font-family="monospace" font-size="48">🚗</text>
+  <text x="250" y="150" text-anchor="middle" fill="white" font-family="monospace" font-size="48">🚗</text>
+  <text x="250" y="150" text-anchor="middle" fill="white" font-family="monospace" font-size="48">🚗</text>
+
+  <!-- BOTTOM SECTION -->
+  <!-- Time Labels -->
+  <text x="150" y="300" text-anchor="middle" fill="white" font-family="monospace" font-size="18">t₁</text>
+  <text x="250" y="300" text-anchor="middle" fill="white" font-family="monospace" font-size="18">t₂</text>
+  <text x="350" y="300" text-anchor="middle" fill="white" font-family="monospace" font-size="18">t₃</text>
+
+  <!-- Cars (Different Positions) -->
+  <text x="150" y="360" text-anchor="middle" fill="white" font-family="monospace" font-size="48">🚗</text>
+  <text x="250" y="360" text-anchor="middle" fill="white" font-family="monospace" font-size="48">🚗</text>
+  <text x="350" y="360" text-anchor="middle" fill="white" font-family="monospace" font-size="48">🚗</text>
+
+  <!-- Caption -->
+  <text x="250" y="450" text-anchor="middle" fill="white" font-family="monospace" font-size="18">
+    Motion requires change in position over time.
+  </text>
+
+  <!-- Watermark -->
+  <text x="420" y="485" fill="white" font-family="monospace" font-size="12" opacity="0.4">taleem.help</text>
+
+</svg>
