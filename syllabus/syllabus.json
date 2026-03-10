@@ -1,0 +1,44 @@
+{
+  "courses": [
+    {
+      "slug": "fbise8math",
+      "title": "FBISE Grade 8 Mathematics",
+      "chapters": [
+        {
+          "slug": "fbise8math-ch1",
+          "title": "Rational Numbers",
+          "image": "box.webp",
+          "decks": [
+            {
+              "anchor": "fbise8math-ch1",
+              "title": "Golden Deck",
+              "deck": "gold",
+              "tag": "concept",
+              "image": "atom.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "fbise9math",
+      "title": "FBISE Grade 9 Mathematics",
+      "chapters": [
+        {
+          "slug": "fbise9math-ch1",
+          "title": "Chapter 99 ",
+          "image": "box.webp",
+          "decks": [
+            {
+              "anchor": "fbise9math-ch1",
+              "title": "Golden Deck",
+              "deck": "gold",
+              "tag": "concept",
+              "image": "atom.png"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
