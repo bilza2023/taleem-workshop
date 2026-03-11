@@ -19,6 +19,10 @@ body{
   padding:40px 20px;
 }
 
+.buttons{
+  margin-bottom:20px;
+}
+
 .slide{
   border:1px solid #333;
   padding:15px;
@@ -55,6 +59,11 @@ input{
   margin-top:5px;
 }
 
+.status{
+  margin-top:15px;
+  color:#aaa;
+}
+
 </style>
 </head>
 
@@ -66,12 +75,19 @@ input{
 
 <h2>Timing Editor</h2>
 
+<div class="buttons">
+<button onclick="saveDeck()">Save</button>
+<button onclick="playDeck()">Play</button>
+</div>
+
 <div class="player">
 <audio id="audio" controls></audio>
 <div class="time">Current Time: <span id="currentTime">0</span></div>
 </div>
 
 <div id="slides"></div>
+
+<div class="status" id="status"></div>
 
 </div>
 
@@ -83,6 +99,7 @@ const slug = params.get("deck");
 const slidesDiv = document.getElementById("slides");
 const audio = document.getElementById("audio");
 const currentTimeLabel = document.getElementById("currentTime");
+const status = document.getElementById("status");
 
 let deck;
 
@@ -162,7 +179,7 @@ function renderSlides(){
     slideBox.appendChild(startBtn);
     slideBox.appendChild(startInput);
 
-    slide.data.forEach((item,ii)=>{
+    slide.data.forEach((item)=>{
 
       const row = document.createElement("div");
       row.className = "item";
@@ -192,6 +209,52 @@ function renderSlides(){
     slidesDiv.appendChild(slideBox);
 
   });
+
+}
+
+
+/* SAVE */
+
+async function saveDeck(){
+
+  if(!slug){
+    alert("Slug missing.");
+    return;
+  }
+
+  try{
+
+    const res = await fetch("/timings/save",{
+      method:"POST",
+      headers:{ "Content-Type":"application/json" },
+      body: JSON.stringify({
+        slug,
+        content: JSON.stringify(deck, null, 2)
+      })
+    });
+
+    const data = await res.json();
+
+    status.textContent = data.message;
+
+    alert("Timings Saved!");
+
+  }catch(err){
+
+    status.textContent = "Save failed.";
+
+  }
+
+}
+
+
+/* PLAY */
+
+function playDeck(){
+
+  if(!slug) return;
+
+  window.open(`/player/?deck=${slug}`, "_blank");
 
 }
 

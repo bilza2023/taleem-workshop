@@ -31,7 +31,7 @@ app.use("/", homeRoutes);
 app.use("/dashboard", dashboardRoutes);
 app.use("/editor", editorRoutes);
 app.use("/builder", builderRoutes);
-app.use("/timer", timerRoutes);
+app.use("/timings", timerRoutes);
 // app.use("/player", playerRoutes);
 app.use("/questions", questionsRoutes);
 
