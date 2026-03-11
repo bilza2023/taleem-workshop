@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Deck Editor</title>
+
+<style>
+
+body{
+  margin:0;
+  background:#0f0f0f;
+  color:#eee;
+  font-family:system-ui, Arial;
+}
+
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:40px 20px;
+}
+
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+
+.slug{
+  font-size:14px;
+  color:#aaa;
+}
+
+.buttons{
+  margin-bottom:10px;
+}
+
+button{
+  padding:10px 16px;
+  border:none;
+  border-radius:6px;
+  background:#2c7be5;
+  color:white;
+  cursor:pointer;
+  margin-right:10px;
+}
+
+button:hover{
+  background:#1a68d1;
+}
+
+.play{
+  background:#27ae60;
+}
+
+.play:hover{
+  background:#1f8c4a;
+}
+
+textarea{
+  width:100%;
+  height:600px;
+  background:#151515;
+  color:#eee;
+  border:1px solid #333;
+  border-radius:8px;
+  padding:16px;
+  font-family:monospace;
+  font-size:14px;
+}
+
+.status{
+  margin-top:10px;
+  color:#aaa;
+}
+
+</style>
+</head>
+
+<body>
+
+<%- include('../partials/nav') %>
+
+<div class="container">
+
+<div class="header">
+<h2>Deck Editor</h2>
+<div class="slug">Slug: <strong id="slug"></strong></div>
+</div>
+
+<div class="buttons">
+<button onclick="saveDeck()">Save</button>
+<button class="play" onclick="playDeck()">Play</button>
+</div>
+
+<textarea id="editor"></textarea>
+
+<div class="status" id="status"></div>
+
+</div>
+
+<script>
+
+const params = new URLSearchParams(window.location.search);
+const slug = params.get("deck");
+
+const editor = document.getElementById("editor");
+const slugLabel = document.getElementById("slug");
+const status = document.getElementById("status");
+
+slugLabel.textContent = slug || "(new deck)";
+
+async function loadDeck(){
+
+  if(!slug){
+    editor.value = "{\n\n}";
+    return;
+  }
+
+  try{
+
+    const res = await fetch(`/content/decks/${slug}.json`);
+
+    if(!res.ok){
+      status.textContent = "Deck not found.";
+      return;
+    }
+
+    const text = await res.text();
+
+    editor.value = text;
+
+    status.textContent = "Deck loaded.";
+
+  }catch(err){
+
+    status.textContent = "Error loading deck.";
+
+  }
+
+}
+
+async function saveDeck(){
+debugger;
+  if(!slug){
+    alert("Slug missing.");
+    return;
+  }
+
+  try{
+
+    const res = await fetch("/editor/save",{
+      method:"POST",
+      headers:{ "Content-Type":"application/json" },
+      body: JSON.stringify({
+        slug,
+        content: editor.value
+      })
+    });
+
+    const data = await res.json();
+
+    status.textContent = data.message;
+   alert("Deck Saved!");
+  }catch(err){
+
+    status.textContent = "Save failed.";
+
+  }
+
+}
+
+function playDeck(){
+
+  if(!slug) return;
+
+  window.open(`/player/?deck=${slug}`, "_blank");
+
+}
+
+loadDeck();
+
+</script>
+
+</body>
+</html>

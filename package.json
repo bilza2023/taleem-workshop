@@ -1,17 +1,31 @@
 {
   "name": "taleem-workshop",
   "version": "1.0.0",
-  "description": "",
+  "description": "This is the development workshop just the assets which are being worked upon",
   "type": "module",
-  "main": "index.js",
   "scripts": {
-    "push": "node ./scripts/push.js",
-    "pull": "node ./scripts/pull.js"
+    "dev": "nodemon src/server.js",
+      "build:decks": "node scripts/build-decks.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^2.2.2",
+    "ejs": "^5.0.1",
+    "express": "^5.2.1",
+    "taleem-builder": "^1.0.2",
     "zod": "^4.3.6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bilza2023/taleem-workshop.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bilza2023/taleem-workshop/issues"
+  },
+  "homepage": "https://github.com/bilza2023/taleem-workshop#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.14"
   }
 }

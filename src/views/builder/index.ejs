@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Deck Builder Editor</title>
+
+<style>
+
+body{
+  margin:0;
+  background:#0f0f0f;
+  color:#eee;
+  font-family:system-ui, Arial;
+}
+
+.container{
+  max-width:1200px;
+  margin:auto;
+  padding:40px 20px;
+}
+
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+
+.slug{
+  font-size:14px;
+  color:#aaa;
+}
+
+.buttons{
+  margin-bottom:10px;
+}
+
+button{
+  padding:10px 16px;
+  border:none;
+  border-radius:6px;
+  background:#2c7be5;
+  color:white;
+  cursor:pointer;
+  margin-right:10px;
+}
+
+button:hover{
+  background:#1a68d1;
+}
+
+.build{
+  background:#8e44ad;
+}
+
+.build:hover{
+  background:#732d91;
+}
+
+.play{
+  background:#27ae60;
+}
+
+.play:hover{
+  background:#1f8c4a;
+}
+
+.editor-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+
+textarea{
+  width:100%;
+  height:600px;
+  background:#151515;
+  color:#eee;
+  border:1px solid #333;
+  border-radius:8px;
+  padding:16px;
+  font-family:monospace;
+  font-size:14px;
+}
+
+.status{
+  margin-top:10px;
+  color:#aaa;
+}
+
+.panel-title{
+  margin-bottom:6px;
+  font-size:13px;
+  color:#888;
+}
+
+</style>
+</head>
+
+<body>
+
+<%- include('../partials/nav') %>
+
+<div class="container">
+
+<div class="header">
+<h2>Deck Builder Editor</h2>
+<div class="slug">Slug: <strong id="slug"></strong></div>
+</div>
+
+<div class="buttons">
+<button class="build" onclick="buildDeck()">Build JSON</button>
+<button onclick="saveDeck()">Save</button>
+<button class="play" onclick="playDeck()">Play</button>
+</div>
+
+<div class="editor-grid">
+
+<div>
+<div class="panel-title">Builder Script</div>
+<textarea id="builderEditor"></textarea>
+</div>
+
+<div>
+<div class="panel-title">Generated JSON</div>
+<textarea id="jsonPreview" readonly></textarea>
+</div>
+
+</div>
+
+<div class="status" id="status"></div>
+
+</div>
+
+<script type="module">
+
+import TaleemBuilder from "/node_modules/taleem-builder/index.js";
+
+const params = new URLSearchParams(window.location.search);
+const slug = params.get("deck");
+
+const builderEditor = document.getElementById("builderEditor");
+const jsonPreview = document.getElementById("jsonPreview");
+const slugLabel = document.getElementById("slug");
+const status = document.getElementById("status");
+
+slugLabel.textContent = slug || "(new deck)";
+
+let compiledDeck = null;
+
+
+/* LOAD BUILDER FILE */
+
+async function loadDeck(){
+
+  if(!slug){
+    builderEditor.value = "";
+    return;
+  }
+
+  try{
+
+    const res = await fetch(`/content/decks/${slug}.builder`);
+
+    if(!res.ok){
+      status.textContent = "Builder file not found.";
+      return;
+    }
+
+    const text = await res.text();
+
+    builderEditor.value = text;
+
+    status.textContent = "Builder script loaded.";
+
+  }catch(err){
+
+    status.textContent = "Error loading builder.";
+
+  }
+
+}
+
+loadDeck();
+
+
+/* BUILD JSON */
+
+window.buildDeck = function(){
+
+  try{
+
+    const code = builderEditor.value;
+
+    const fn = new Function("TaleemBuilder", code);
+
+    compiledDeck = fn(TaleemBuilder);
+
+    jsonPreview.value = JSON.stringify(compiledDeck, null, 2);
+
+    status.textContent = "Deck built successfully.";
+
+  }catch(err){
+
+    status.textContent = "Build error: " + err.message;
+
+  }
+
+};
+
+
+/* SAVE JSON */
+
+window.saveDeck = async function(){
+
+  if(!slug){
+    alert("Slug missing.");
+    return;
+  }
+
+  if(!compiledDeck){
+    alert("Build the deck first.");
+    return;
+  }
+
+  try{
+
+    const res = await fetch("/builder/save",{
+      method:"POST",
+      headers:{ "Content-Type":"application/json" },
+      body: JSON.stringify({
+        slug,
+        content: JSON.stringify(compiledDeck,null,2)
+      })
+    });
+
+    const data = await res.json();
+
+    status.textContent = data.message;
+
+    alert("Deck Saved!");
+
+  }catch(err){
+
+    status.textContent = "Save failed.";
+
+  }
+
+};
+
+
+/* PLAY */
+
+window.playDeck = function(){
+
+  if(!slug) return;
+
+  window.open(`/player/?deck=${slug}`, "_blank");
+
+};
+
+</script>
+
+</body>
+</html>
