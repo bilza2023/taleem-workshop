@@ -1,0 +1,73 @@
+
+body{
+  margin:0;
+  background:#0f0f0f;
+  color:#eee;
+  font-family:system-ui, Arial;
+}
+
+.container{
+  max-width:1100px;
+  margin:auto;
+  margin-top:140px;
+  padding:20px;
+}
+
+.slide{
+  border:1px solid #333;
+  padding:15px;
+  margin-bottom:20px;
+  border-radius:6px;
+}
+
+.item{
+  margin-left:20px;
+  margin-top:6px;
+}
+
+button{
+  padding:6px 10px;
+  border:none;
+  border-radius:4px;
+  background:#2c7be5;
+  color:white;
+  cursor:pointer;
+  margin-left:8px;
+}
+
+input{
+  width:70px;
+  margin-left:10px;
+}
+
+.player{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  background:#111;
+  border-bottom:1px solid #333;
+  z-index:1000;
+  padding-top:2px;   /* height of navbar */
+}
+
+
+.player-inner{
+  max-width:1100px;
+  margin:auto;
+  padding:10px 20px;
+}
+
+.time{
+  font-size:18px;
+  margin-top:5px;
+}
+
+.status{
+  margin-top:15px;
+  color:#aaa;
+}
+
+.buttons{
+  margin-bottom:10px;
+}

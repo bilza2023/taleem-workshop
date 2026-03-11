@@ -3,87 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <title>Deck Timing Editor</title>
-
-<style>
-
-body{
-  margin:0;
-  background:#0f0f0f;
-  color:#eee;
-  font-family:system-ui, Arial;
-}
-
-.container{
-  max-width:1100px;
-  margin:auto;
-  padding:40px 20px;
-}
-
-.buttons{
-  margin-bottom:20px;
-}
-
-.slide{
-  border:1px solid #333;
-  padding:15px;
-  margin-bottom:20px;
-  border-radius:6px;
-}
-
-.item{
-  margin-left:20px;
-  margin-top:6px;
-}
-
-button{
-  padding:6px 10px;
-  border:none;
-  border-radius:4px;
-  background:#2c7be5;
-  color:white;
-  cursor:pointer;
-  margin-left:8px;
-}
-
-input{
-  width:70px;
-  margin-left:10px;
-}
-
-.player{
-  margin-bottom:30px;
-}
-
-.time{
-  font-size:18px;
-  margin-top:5px;
-}
-
-.status{
-  margin-top:15px;
-  color:#aaa;
-}
-
-</style>
+<link rel="stylesheet" href="/css/timings.css">
 </head>
 
 <body>
 
 <%- include('../partials/nav') %>
 
-<div class="container">
-
-<h2>Timing Editor</h2>
+<div class="player">
+<div class="player-inner">
 
 <div class="buttons">
 <button onclick="saveDeck()">Save</button>
 <button onclick="playDeck()">Play</button>
 </div>
 
-<div class="player">
 <audio id="audio" controls></audio>
 <div class="time">Current Time: <span id="currentTime">0</span></div>
+
 </div>
+</div>
+
+<div class="container">
+
+<h2>Timing Editor</h2>
 
 <div id="slides"></div>
 
@@ -149,6 +92,21 @@ async function loadDeck(){
 }
 
 
+/* SHORT TEXT SNIPPET */
+
+function snippet(text){
+
+  if(!text) return "";
+
+  if(text.length > 200){
+    return text.substring(0,200) + "...";
+  }
+
+  return text;
+
+}
+
+
 /* RENDER SLIDES */
 
 function renderSlides(){
@@ -179,13 +137,11 @@ function renderSlides(){
     slideBox.appendChild(startBtn);
     slideBox.appendChild(startInput);
 
+
     slide.data.forEach((item)=>{
 
       const row = document.createElement("div");
       row.className = "item";
-
-      const label = document.createElement("span");
-      label.textContent = item.name || "line";
 
       const btn = document.createElement("button");
       btn.textContent = "set";
@@ -198,9 +154,16 @@ function renderSlides(){
         input.value = item.showAt;
       };
 
-      row.appendChild(label);
+      const text = document.createElement("span");
+
+      const name = item.name || "line";
+      const content = snippet(item.content);
+
+      text.textContent = ` ${name} : ${content}`;
+
       row.appendChild(btn);
       row.appendChild(input);
+      row.appendChild(text);
 
       slideBox.appendChild(row);
 
