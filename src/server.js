@@ -8,7 +8,7 @@ import editorRoutes from "./routes/editor.routes.js";
 import builderRoutes from "./routes/builder.routes.js";
 import timerRoutes from "./routes/timer.routes.js";
 import playerRoutes from "./routes/player.routes.js";
-import questionsRoutes from "./routes/questions.routes.js";
+// import questionsRoutes from "./routes/questions.routes.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -33,7 +33,7 @@ app.use("/editor", editorRoutes);
 app.use("/builder", builderRoutes);
 app.use("/timings", timerRoutes);
 app.use("/player", playerRoutes);
-app.use("/questions", questionsRoutes);
+// app.use("/questions", questionsRoutes);
 
 app.listen(PORT, () => {
   console.log(`🚀 Workshop running at http://localhost:${PORT}`);
