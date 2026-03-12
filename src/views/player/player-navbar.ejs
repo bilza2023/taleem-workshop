@@ -5,11 +5,11 @@
     height:60px;
     display:flex;
     align-items:center;
-    justify-content:space-between;
   
     padding:0 16px;
-  
-    background:#ffffff;
+    background:var(--backgroundColor);
+  color:var(--primaryColor);
+    /* background:#ffffff; */
     border-top:1px solid #e5e7eb;
   }
   
@@ -101,43 +101,15 @@
   }
   
   .scrub-wrap{
-  display:flex;
-  align-items:center;
-  flex:1;
-  margin-left:12px;
-  margin-right:12px;
-}
-#scrub{
-  width:100%;
-  flex:1;
-}
-  
-  #toggle-sidebar{
-    padding:6px 10px;
-  
-    font-size:16px;
-    line-height:1;
-  
-    color:#374151;
-    background:#ffffff;
-  
-    border:1px solid #e5e7eb;
-    border-radius:6px;
-  
-    cursor:pointer;
-  
-    box-shadow:0 1px 2px rgba(0,0,0,0.08);
-    transition:all 0.12s ease;
+    flex:1;
+    display:flex;
+    align-items:center;
+    margin-left:20px;
+    margin-right:20px;
   }
   
-  #toggle-sidebar:hover{
-    background:#f9fafb;
-    border-color:#b5c078;
-  }
-  
-  #toggle-sidebar:active{
-    transform:translateY(1px);
-    box-shadow:inset 0 1px 2px rgba(0,0,0,0.15);
+  #scrub{
+    width:100%;
   }
   
   .theme-picker{
@@ -163,64 +135,56 @@
     box-shadow:0 0 0 2px rgba(0,0,0,0.08);
   }
   
-  #theme-gray{
-    background:#d1d5db;
-  }
-  
-  #theme-blue{
-    background:#93c5fd;
-  }
-  
-  #theme-cream{
-    background:#f3e8d5;
-  }
+  #theme-gray{ background:#d1d5db; }
+  #theme-blue{ background:#93c5fd; }
+  #theme-cream{ background:#f3e8d5; }
   
   </style>
   
-<div class="navbar">
-
+  
+  <div class="navbar">
+  
     <div class="left-controls">
-      
+  
       <a href="/" class="brand-btn">taleem.Workshop</a>
-
+  
       <button class="ctl-btn" id="play-btn">▶</button>
       <button class="ctl-btn" id="pause-btn">⏸</button>
       <button class="ctl-btn" id="stop-btn">⏹</button>
   
       <span id="time">0.0s</span>
   
-      <div class="scrub-wrap">
-        <input id="scrub" type="range" min="0" max="1" step="0.1">
-      </div>
+    </div>
   
+    <div class="scrub-wrap">
+      <input id="scrub" type="range" min="0" max="1" step="0.1">
     </div>
   
     <div class="right-controls">
       <div class="theme-picker">
-
         <div class="theme-dot" id="theme-gray" title="Gray theme"></div>
         <div class="theme-dot" id="theme-cream" title="Cream theme"></div>
         <div class="theme-dot" id="theme-blue" title="Blue theme"></div>
-      
       </div>
     </div>
   
   </div>
-
+  
+  
   <script>
-
-    function setTheme(bg, primary){
-      document.documentElement.style.setProperty("--backgroundColor", bg);
-      document.documentElement.style.setProperty("--primaryColor", primary);
-    }
-    
-    document.getElementById("theme-blue").onclick = () =>
-      setTheme("#081b7a","#ccd0e4");
-    
-    document.getElementById("theme-gray").onclick = () =>
-      setTheme("#1f2937","#e5e7eb");
-    
-    document.getElementById("theme-cream").onclick = () =>
-      setTheme("#f3e8d5","#1f2937");
-    
-    </script>
+  
+  function setTheme(bg, primary){
+    document.documentElement.style.setProperty("--backgroundColor", bg);
+    document.documentElement.style.setProperty("--primaryColor", primary);
+  }
+  
+  document.getElementById("theme-blue").onclick = () =>
+    setTheme("#081b7a","#ccd0e4");
+  
+  document.getElementById("theme-gray").onclick = () =>
+    setTheme("#1f2937","#e5e7eb");
+  
+  document.getElementById("theme-cream").onclick = () =>
+    setTheme("#f3e8d5","#1f2937");
+  
+  </script>
