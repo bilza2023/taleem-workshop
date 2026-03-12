@@ -3,7 +3,7 @@
   "name": "Golden Deck V1 – Full Schema Coverage",
   "background": {
     "backgroundColor": "#111111",
-    "backgroundImage": null,
+    "backgroundImage": "/content/images/bg.webp",
     "backgroundImageOpacity": 0.3
   },
   "deck": [

@@ -49,17 +49,19 @@ const deckSlug = "<%= deck %>";
 async function init(){
   const res = await fetch(`/content/decks/${deckSlug}.json`);
   const deck = await res.json();
+
+///////////////////////////////////////////////
+    resolveAssetPaths(deck , "/content/images/");
+///////////////////////////////////////////////
+
   ///--end time 
-  // console.log("getDeckEndTime",getDeckEndTime(deck));
   const duration = getDeckEndTime(deck);
   const player = createTaleemPlayer({
     deck,
     mount: document.querySelector("#player-root")
   });
   const timer = await getTimer(deckSlug);
-///////////////////////////////////////////////
-    resolveAssetPaths(deck , "/content/images/");
-///////////////////////////////////////////////
+
   taleemPlayerApp({
     player,
     timer,
