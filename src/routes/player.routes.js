@@ -1,9 +1,15 @@
-
 import express from "express";
+
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  res.render("player/index");
+
+  const deck = req.query.deck || null;
+
+  res.render("player/index", {
+    deck
+  });
+
 });
 
 export default router;

@@ -1,0 +1,226 @@
+<style>
+
+  .navbar{
+    position:relative;
+    height:60px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  
+    padding:0 16px;
+  
+    background:#ffffff;
+    border-top:1px solid #e5e7eb;
+  }
+  
+  .left-controls{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-wrap:nowrap;
+  }
+  
+  .right-controls{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-wrap:nowrap;
+  }
+  
+  .brand-btn{
+    display:inline-block;
+    padding:6px 14px;
+    margin-right:12px;
+  
+    font-size:14px;
+    font-weight:600;
+    letter-spacing:0.5px;
+  
+    color:white;
+    text-decoration:none;
+  
+    background:linear-gradient(135deg,#2bb673,#21372c);
+    border-radius:6px;
+  
+    box-shadow:0 2px 4px rgba(0,0,0,0.15);
+    transition:all 0.15s ease;
+  }
+  
+  .brand-btn:hover{
+    transform:translateY(-1px);
+    box-shadow:0 4px 8px rgba(0,0,0,0.2);
+  }
+  
+  #time{
+    display:inline-block;
+    margin-left:12px;
+    padding:4px 10px;
+  
+    font-size:13px;
+    font-weight:500;
+    letter-spacing:0.3px;
+  
+    color:#4b5563;
+    background:#f3f4f6;
+  
+    border:1px solid #e5e7eb;
+    border-radius:6px;
+  
+    box-shadow:inset 0 1px 2px rgba(0,0,0,0.06);
+  
+    font-variant-numeric:tabular-nums;
+  }
+  
+  .ctl-btn{
+    padding:6px 10px;
+    margin-right:4px;
+  
+    font-size:14px;
+    line-height:1;
+  
+    color:#374151;
+    background:#ffffff;
+  
+    border:1px solid #e5e7eb;
+    border-radius:6px;
+  
+    cursor:pointer;
+  
+    box-shadow:0 1px 2px rgba(0,0,0,0.08);
+    transition:all 0.12s ease;
+  }
+  
+  .ctl-btn:hover{
+    background:#f9fafb;
+    border-color:#d1d5db;
+  }
+  
+  .ctl-btn:active{
+    transform:translateY(1px);
+    box-shadow:inset 0 1px 2px rgba(0,0,0,0.15);
+  }
+  
+  .scrub-wrap{
+  display:flex;
+  align-items:center;
+  flex:1;
+  margin-left:12px;
+  margin-right:12px;
+}
+#scrub{
+  width:100%;
+  flex:1;
+}
+  
+  #toggle-sidebar{
+    padding:6px 10px;
+  
+    font-size:16px;
+    line-height:1;
+  
+    color:#374151;
+    background:#ffffff;
+  
+    border:1px solid #e5e7eb;
+    border-radius:6px;
+  
+    cursor:pointer;
+  
+    box-shadow:0 1px 2px rgba(0,0,0,0.08);
+    transition:all 0.12s ease;
+  }
+  
+  #toggle-sidebar:hover{
+    background:#f9fafb;
+    border-color:#b5c078;
+  }
+  
+  #toggle-sidebar:active{
+    transform:translateY(1px);
+    box-shadow:inset 0 1px 2px rgba(0,0,0,0.15);
+  }
+  
+  .theme-picker{
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  
+  .theme-dot{
+    width:14px;
+    height:14px;
+  
+    border-radius:50%;
+    border:1px solid rgba(0,0,0,0.15);
+  
+    cursor:pointer;
+  
+    transition:transform 0.12s ease, box-shadow 0.12s ease;
+  }
+  
+  .theme-dot:hover{
+    transform:scale(1.15);
+    box-shadow:0 0 0 2px rgba(0,0,0,0.08);
+  }
+  
+  #theme-gray{
+    background:#d1d5db;
+  }
+  
+  #theme-blue{
+    background:#93c5fd;
+  }
+  
+  #theme-cream{
+    background:#f3e8d5;
+  }
+  
+  </style>
+  
+<div class="navbar">
+
+    <div class="left-controls">
+      
+      <a href="/" class="brand-btn">taleem.Workshop</a>
+
+      <button class="ctl-btn" id="play-btn">▶</button>
+      <button class="ctl-btn" id="pause-btn">⏸</button>
+      <button class="ctl-btn" id="stop-btn">⏹</button>
+  
+      <span id="time">0.0s</span>
+  
+      <div class="scrub-wrap">
+        <input id="scrub" type="range" min="0" max="1" step="0.1">
+      </div>
+  
+    </div>
+  
+    <div class="right-controls">
+      <div class="theme-picker">
+
+        <div class="theme-dot" id="theme-gray" title="Gray theme"></div>
+        <div class="theme-dot" id="theme-cream" title="Cream theme"></div>
+        <div class="theme-dot" id="theme-blue" title="Blue theme"></div>
+      
+      </div>
+    </div>
+  
+  </div>
+
+  <script>
+
+    function setTheme(bg, primary){
+      document.documentElement.style.setProperty("--backgroundColor", bg);
+      document.documentElement.style.setProperty("--primaryColor", primary);
+    }
+    
+    document.getElementById("theme-blue").onclick = () =>
+      setTheme("#081b7a","#ccd0e4");
+    
+    document.getElementById("theme-gray").onclick = () =>
+      setTheme("#1f2937","#e5e7eb");
+    
+    document.getElementById("theme-cream").onclick = () =>
+      setTheme("#f3e8d5","#1f2937");
+    
+    </script>

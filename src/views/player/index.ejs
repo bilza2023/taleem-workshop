@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Taleem Player</title>
+
+<style>
+:root{
+  --backgroundColor:#081b7a;
+  --primaryColor:#ccd0e4;
+}
+
+body{
+  margin:0;
+  background:var(--backgroundColor);
+  color:var(--primaryColor);
+  display:flex;
+  flex-direction:column;
+  height:100vh;
+}
+
+.player-stage{
+  flex:1;
+  display:flex;
+}
+
+#player-root{
+  width:100%;
+  height:100%;
+}
+</style>
+<link rel="stylesheet" href="/css/taleem-player-app.css">
+</head><body>
+
+<div class="player-stage">
+  <div id="player-root"></div>
+</div>
+
+<%- include('./player-navbar') %>
+<script src="https://cdn.jsdelivr.net/npm/howler@2.2.4/dist/howler.min.js"></script>
+<script type="module">
+import { taleemPlayerApp, createSilentTimer }from "/js/taleem-player-app.esm.js";
+import { createTaleemPlayer,getDeckEndTime } from "/js/taleem-player.esm.js";
+import { getTimer } from "/js/getTimer.js";
+
+const deckSlug = "<%= deck %>";
+
+async function init(){
+  const res = await fetch(`/content/decks/${deckSlug}.json`);
+  const deck = await res.json();
+  ///--end time 
+  // console.log("getDeckEndTime",getDeckEndTime(deck));
+  const duration = getDeckEndTime(deck);
+  const player = createTaleemPlayer({
+    deck,
+    mount: document.querySelector("#player-root")
+  });
+  const timer = await getTimer(deckSlug);
+
+  taleemPlayerApp({
+    player,
+    timer,
+    duration :(duration-1),
+    ui:{
+      playBtn: document.querySelector("#play-btn"),
+      pauseBtn: document.querySelector("#pause-btn"),
+      stopBtn: document.querySelector("#stop-btn"),
+      scrub: document.querySelector("#scrub"),
+      timeEl: document.querySelector("#time")
+    }
+  });
+}
+init();
+</script></body></html>

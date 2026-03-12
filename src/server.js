@@ -7,7 +7,7 @@ import dashboardRoutes from "./routes/dashboard.routes.js";
 import editorRoutes from "./routes/editor.routes.js";
 import builderRoutes from "./routes/builder.routes.js";
 import timerRoutes from "./routes/timer.routes.js";
-// import playerRoutes from "./routes/player.routes.js";
+import playerRoutes from "./routes/player.routes.js";
 import questionsRoutes from "./routes/questions.routes.js";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -32,7 +32,7 @@ app.use("/dashboard", dashboardRoutes);
 app.use("/editor", editorRoutes);
 app.use("/builder", builderRoutes);
 app.use("/timings", timerRoutes);
-// app.use("/player", playerRoutes);
+app.use("/player", playerRoutes);
 app.use("/questions", questionsRoutes);
 
 app.listen(PORT, () => {
