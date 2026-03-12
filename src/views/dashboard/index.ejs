@@ -138,7 +138,7 @@ Total decks: <strong><%= decks.length %></strong>
 <th class="serial">#</th>
 <th>Deck</th>
 <th>Slides</th>
-<th>Duration</th>
+<th>Timings</th>
 <th>Schema</th>
 <th>Images</th>
 <th>BG</th>
@@ -155,20 +155,34 @@ Total decks: <strong><%= decks.length %></strong>
 
 <td class="serial"><%= index + 1 %></td>
 
-<td class="deck"><%= deck %></td>
+<td class="deck"><%= deck.slug %></td>
 
-<td>—</td>
-<td>—</td>
+<td><%= deck.slides ?? "—" %></td>
 
-<td class="status-ok">✔</td>
-<td class="status-ok">✔</td>
-<td class="status-ok">✔</td>
-<td class="status-ok">✔</td>
+<td class="<%= deck.duration ? 'status-ok' : 'status-bad' %>">
+<%= deck.duration ? '✔' : '✖' %>
+</td>
+
+<td class="<%= deck.schema ? 'status-ok' : 'status-bad' %>">
+<%= deck.schema ? '✔' : '✖' %>
+</td>
+
+<td class="<%= deck.images ? 'status-ok' : 'status-bad' %>">
+<%= deck.images ? '✔' : '✖' %>
+</td>
+
+<td class="<%= deck.bg ? 'status-ok' : 'status-bad' %>">
+<%= deck.bg ? '✔' : '✖' %>
+</td>
+
+<td class="<%= deck.audio ? 'status-ok' : 'status-bad' %>">
+<%= deck.audio ? '✔' : '✖' %>
+</td>
 
 <td class="actions">
 
-<a href="/player?deck=<%= deck %>" target="_blank">Play</a>
-<a href="/editor?deck=<%= deck %>">Edit</a>
+<a href="/player?deck=<%= deck.slug %>" target="_blank">Play</a>
+<a href="/editor?deck=<%= deck.slug %>">Edit</a>
 
 </td>
 

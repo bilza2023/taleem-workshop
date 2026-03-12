@@ -1,6 +1,7 @@
 {
   "name": "Demo Builder Deck",
   "version": "deck-v1",
+  "audio" : "music.mp3",
   "background": {
     "backgroundColor": "#0f172a",
     "backgroundImage": "/content/images/bg.webp",
