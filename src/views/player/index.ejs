@@ -5,11 +5,11 @@
 <title>Taleem Player</title>
 
 <style>
-:root{
-  --backgroundColor:#081b7a;
-  --primaryColor:#ccd0e4;
-}
 
+:root{
+  --backgroundColor: #d30b29;
+  --primaryColor:#269a1e;
+}
 body{
   margin:0;
   background:var(--backgroundColor);
@@ -37,10 +37,11 @@ body{
 </div>
 
 <%- include('./player-navbar') %>
+
 <script src="https://cdn.jsdelivr.net/npm/howler@2.2.4/dist/howler.min.js"></script>
 <script type="module">
 import { taleemPlayerApp, createSilentTimer }from "/js/taleem-player-app.esm.js";
-import { createTaleemPlayer,getDeckEndTime } from "/js/taleem-player.esm.js";
+import { createTaleemPlayer,getDeckEndTime,resolveAssetPaths } from "/js/taleem-player.esm.js";
 import { getTimer } from "/js/getTimer.js";
 
 const deckSlug = "<%= deck %>";
@@ -56,7 +57,9 @@ async function init(){
     mount: document.querySelector("#player-root")
   });
   const timer = await getTimer(deckSlug);
-
+///////////////////////////////////////////////
+    resolveAssetPaths(deck , "/content/images/");
+///////////////////////////////////////////////
   taleemPlayerApp({
     player,
     timer,

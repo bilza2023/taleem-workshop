@@ -3,8 +3,8 @@
   "version": "deck-v1",
   "background": {
     "backgroundColor": "#0f172a",
-    "backgroundImage": "/content/images/taleem.webp",
-    "backgroundImageOpacity": 0.15
+    "backgroundImage": "/content/images/bg.webp",
+    "backgroundImageOpacity": 0.4
   },
   "deck": [
     {
