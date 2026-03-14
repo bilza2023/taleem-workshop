@@ -4,6 +4,8 @@ import path from "path";
 import { fileURLToPath } from "url";
 import {validateDeckV1, validatePlayerDeckV1} from "../../node_modules/taleem-player/dist/validation/index.js";
 
+import { getDeckImages }from "./getDeckImages.js";
+
 const router = express.Router();
 
 const __filename = fileURLToPath(import.meta.url);
@@ -44,12 +46,48 @@ function testSchema(slug){
 }
 
 function testImages(slug){
-  return false;
+  try{
+
+    const deck = loadDeck(slug);
+    if(!deck) return false;
+
+    const images = getDeckImages(deck);
+
+    const imgDir = path.join(__dirname, "../../public/content/images");
+
+    for(const img of images){
+      const file = path.join(imgDir, img);
+      if(!fs.existsSync(file)){
+        return false;
+      }
+    }
+
+    return true;
+
+  }catch{
+    return false;
+  }
+}
+function testBG(slug){
+  try{
+
+    const deck = loadDeck(slug);
+    if(!deck) return false;
+
+    const bg = deck?.background?.backgroundImage;
+    if(!bg) return true;
+
+    const imgDir = path.join(__dirname, "../../public/content/images");
+
+    const file = path.join(imgDir, bg.split("/").pop());
+
+    return fs.existsSync(file);
+
+  }catch{
+    return false;
+  }
 }
 
-function testBG(slug){
-  return false;
-}
 function testAudio(slug){
   try{
 

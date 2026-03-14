@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Taleem Workshop</title>
+
+<link rel="stylesheet" href="/css/create-page.css">
+
+<style>
+
+.alert{
+color:#f87171;
+font-size:20px;
+margin-bottom:20px;
+}
+
+.page{
+max-width:900px;
+margin:auto;
+padding-top:90px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<%- include('../partials/nav') %>
+
+<div class="page">
+
+<h1>Taleem Workshop</h1>
+
+<% if (typeof query !== "undefined" && query.msg) { %>
+<div class="alert"><%= query.msg %></div>
+<% } %>
+
+<section>
+
+<h2>DECK</h2>
+
+<form action="/create/deck" method="POST">
+<input name="slug" placeholder="deck slug">
+<button>Create</button>
+</form>
+
+<form action="/create/upload-deck" method="POST" enctype="multipart/form-data">
+<input type="file" name="deck">
+<button>Upload</button>
+</form>
+
+<form action="/create/delete-deck" method="POST">
+<input name="slug" placeholder="deck slug to delete">
+<button>Delete</button>
+</form>
+
+</section>
+
+
+<section>
+
+<h2>IMAGES</h2>
+
+<form action="/create/upload-image" method="POST" enctype="multipart/form-data">
+<input type="file" name="image">
+<button>Upload</button>
+</form>
+
+<form action="/create/delete-image" method="POST">
+<input name="filename" placeholder="image filename">
+<button>Delete</button>
+</form>
+
+</section>
+
+
+<section>
+
+<h2>AUDIO</h2>
+
+<form action="/create/upload-audio" method="POST" enctype="multipart/form-data">
+<input type="file" name="audio">
+<button>Upload</button>
+</form>
+
+<form action="/create/delete-audio" method="POST">
+<input name="filename" placeholder="audio filename">
+<button>Delete</button>
+</form>
+
+</section>
+
+</div>
+
+</body>
+</html>
