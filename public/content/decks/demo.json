@@ -1,11 +1,10 @@
 {
-  "name": "Demo Builder Deck",
+  "name": "Number Families",
   "version": "deck-v1",
-  "audio" : "music.mp3",
   "background": {
     "backgroundColor": "#0f172a",
-    "backgroundImage": "/content/images/bg.webp",
-    "backgroundImageOpacity": 0.4
+    "backgroundImage": "/images/taleem.webp",
+    "backgroundImageOpacity": 0.15
   },
   "deck": [
     {
@@ -15,12 +14,12 @@
       "data": [
         {
           "name": "title",
-          "content": "Welcome to Taleem Builder",
+          "content": "Number Families",
           "showAt": 0
         },
         {
           "name": "subtitle",
-          "content": "Builder script compiling to JSON",
+          "content": "",
           "showAt": 1
         }
       ]

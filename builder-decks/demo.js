@@ -1,14 +1,15 @@
 
-const b = new TaleemBuilder({ mode: "desktop" });
 
-b.addDetails({ name: "Demo Builder Deck" });
+const b = new TaleemBuilder({ mode: "mobile" });
+
+b.addDetails({ name: "Number Families" });
 
 b.setBackgroundColor("#0f172a");
 b.setBackgroundOpacity(0.15);
 
 b.titleAndSubtitle(10, [
-  { name: "title", content: "Welcome to Taleem Builder", showAt: 0 },
-  { name: "subtitle", content: "Builder script compiling to JSON", showAt: 1 }
+  { name: "title", content: "Number Families", showAt: 0 },
+  { name: "subtitle", content: "", showAt: 1 }
 ]);
 
 b.bulletList(15, [
