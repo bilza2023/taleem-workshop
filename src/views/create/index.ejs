@@ -6,7 +6,10 @@
 <link rel="stylesheet" href="/css/create-page.css">
 
 <style>
-
+body{
+  margin:0;
+  padding:0;
+}
 .alert{
 color:#f87171;
 font-size:20px;
@@ -16,7 +19,7 @@ margin-bottom:20px;
 .page{
 max-width:900px;
 margin:auto;
-padding-top:90px;
+padding-top:0px;
 }
 
 </style>
@@ -37,42 +40,38 @@ padding-top:90px;
 
 <section>
 
-<h2>DECK</h2>
-
-<form action="/create/deck" method="POST">
-<input name="slug" placeholder="deck slug">
-<button>Create</button>
-</form>
-
-<form action="/create/upload-deck" method="POST" enctype="multipart/form-data">
-<input type="file" name="deck">
-<button>Upload</button>
-</form>
-
-<form action="/create/delete-deck" method="POST">
-<input name="slug" placeholder="deck slug to delete">
-<button>Delete</button>
-</form>
-
-</section>
-
-
-<section>
-
-<h2>IMAGES</h2>
-
-<form action="/create/upload-image" method="POST" enctype="multipart/form-data">
-<input type="file" name="image">
-<button>Upload</button>
-</form>
-
-<form action="/create/delete-image" method="POST">
-<input name="filename" placeholder="image filename">
-<button>Delete</button>
-</form>
-
-</section>
-
+    <h2>CREATE EMPTY DECK</h2>
+    
+    <form action="/create/deck" method="POST">
+    <input name="slug" placeholder="deck slug (e.g. bodmas)">
+    <button>Create Empty Deck</button>
+    </form>
+    
+    </section>
+    
+    
+    <section>
+    
+    <h2>UPLOAD DECK (.json)</h2>
+    
+    <form action="/create/upload-deck" method="POST" enctype="multipart/form-data">
+    <input type="file" name="deck">
+    <button>Upload Deck</button>
+    </form>
+    
+    </section>
+    
+    
+    <section>
+    
+    <h2>DELETE DECK</h2>
+    
+    <form action="/create/delete-deck" method="POST">
+    <input name="slug" placeholder="deck slug to delete">
+    <button>Delete Deck</button>
+    </form>
+    
+    </section>
 
 <section>
 

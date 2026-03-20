@@ -1,5 +1,5 @@
 {
-  "name": "Number Families",
+  "name": "Demo Builder Deck",
   "version": "deck-v1",
   "background": {
     "backgroundColor": "#0f172a",
@@ -14,12 +14,12 @@
       "data": [
         {
           "name": "title",
-          "content": "Number Families",
+          "content": "This is the first Demo Deck",
           "showAt": 0
         },
         {
           "name": "subtitle",
-          "content": "",
+          "content": "We are using Builder",
           "showAt": 1
         }
       ]
@@ -31,57 +31,18 @@
       "data": [
         {
           "name": "bullet",
-          "content": "Builder scripts are easy to write",
+          "content": "Builder scripts are very easy to write",
           "showAt": 10
         },
         {
           "name": "bullet",
-          "content": "No manual JSON editing needed",
+          "content": "Bullet no 2 Edited...!!!",
           "showAt": 11
         },
         {
           "name": "bullet",
           "content": "Structure remains consistent",
           "showAt": 12
-        }
-      ]
-    },
-    {
-      "start": 15,
-      "end": 20,
-      "type": "imageLeftBulletsRight",
-      "data": [
-        {
-          "name": "image",
-          "content": "image.png",
-          "showAt": 15
-        },
-        {
-          "name": "bullet",
-          "content": "Images reinforce concepts",
-          "showAt": 16
-        },
-        {
-          "name": "bullet",
-          "content": "Bullets guide explanation",
-          "showAt": 17
-        }
-      ]
-    },
-    {
-      "start": 20,
-      "end": 25,
-      "type": "quoteSlide",
-      "data": [
-        {
-          "name": "quote",
-          "content": "Clarity makes learning easier.",
-          "showAt": 20
-        },
-        {
-          "name": "author",
-          "content": "— Taleem",
-          "showAt": 21
         }
       ]
     }
