@@ -48,25 +48,31 @@ let deck;
 
 
 /* LOAD AUDIO */
-
 function loadAudio(){
 
-  const opus = `/content/audio/${slug}.opus`;
-  const mp3 = `/content/audio/${slug}.mp3`;
+const formats = ["opus", "ogg", "mp3"];
 
-  fetch(opus).then(r=>{
-    if(r.ok){
-      audio.src = opus;
-    }else{
-      audio.src = mp3;
-    }
-  }).catch(()=>{
+function tryNext(i){
+  if(i >= formats.length){
     alert("No timing source found.");
-  });
+    return;
+  }
 
+  const url = `/content/audio/${slug}.${formats[i]}`;
+
+  fetch(url, { method: "HEAD" })
+    .then(r => {
+      if(r.ok){
+        audio.src = url;
+      } else {
+        tryNext(i + 1);
+      }
+    })
+    .catch(() => tryNext(i + 1));
 }
 
-
+tryNext(0);
+}
 /* UPDATE CURRENT TIME */
 
 audio.ontimeupdate = () => {

@@ -9,7 +9,7 @@
   "deck": [
     {
       "start": 0,
-      "end": 5,
+      "end": 16,
       "type": "titleAndSubtitle",
       "data": [
         {
@@ -25,15 +25,15 @@
       ]
     },
     {
-      "start": 5,
-      "end": 40,
+      "start": 16,
+      "end": 186,
       "type": "eq",
       "data": [
         {
           "name": "line",
           "type": "heading",
           "content": "Why Number Systems Expanded",
-          "showAt": 5,
+          "showAt": 16,
           "spItems": [
             {
               "type": "spImage",
@@ -45,7 +45,7 @@
           "name": "line",
           "type": "text",
           "content": "Counting works for basic quantities",
-          "showAt": 7,
+          "showAt": 42,
           "spItems": [
             {
               "type": "spImage",
@@ -61,7 +61,7 @@
           "name": "line",
           "type": "text",
           "content": "Zero was introduced to represent nothing",
-          "showAt": 11,
+          "showAt": 60,
           "spItems": [
             {
               "type": "spText",
@@ -81,7 +81,7 @@
           "name": "line",
           "type": "text",
           "content": "Negative numbers solved values below zero",
-          "showAt": 15,
+          "showAt": 90,
           "spItems": [
             {
               "type": "spText",
@@ -101,7 +101,7 @@
           "name": "line",
           "type": "text",
           "content": "Fractions allowed representation of parts",
-          "showAt": 19,
+          "showAt": 126,
           "spItems": [
             {
               "type": "spImage",
@@ -117,7 +117,7 @@
           "name": "line",
           "type": "text",
           "content": "Some values could not be written as fractions",
-          "showAt": 23,
+          "showAt": 146,
           "spItems": [
             {
               "type": "spText",
@@ -133,7 +133,7 @@
           "name": "line",
           "type": "text",
           "content": "Irrational numbers completed the system",
-          "showAt": 27,
+          "showAt": 170,
           "spItems": [
             {
               "type": "spImage",
@@ -148,49 +148,49 @@
       ]
     },
     {
-      "start": 40,
-      "end": 50,
+      "start": 186,
+      "end": 250,
       "type": "bulletList",
       "data": [
         {
           "name": "bullet",
           "content": "Numbers evolved as needs grew",
-          "showAt": 40
+          "showAt": 190
         },
         {
           "name": "bullet",
           "content": "Natural → counting",
-          "showAt": 41
+          "showAt": 200
         },
         {
           "name": "bullet",
           "content": "Whole → includes zero",
-          "showAt": 42
+          "showAt": 205
         },
         {
           "name": "bullet",
           "content": "Integers → include negatives",
-          "showAt": 43
+          "showAt": 211
         },
         {
           "name": "bullet",
           "content": "Rational → fractions & decimals",
-          "showAt": 44
+          "showAt": 216
         },
         {
           "name": "bullet",
           "content": "Irrational → not fractions",
-          "showAt": 45
+          "showAt": 234
         },
         {
           "name": "bullet",
           "content": "Real → rational + irrational",
-          "showAt": 46
+          "showAt": 240
         },
         {
           "name": "bullet",
           "content": "Each family solves a limitation",
-          "showAt": 47
+          "showAt": 248
         }
       ]
     }
