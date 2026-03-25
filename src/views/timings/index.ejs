@@ -183,40 +183,57 @@ function renderSlides(){
 
 
 /* SAVE */
-
 async function saveDeck(){
 
-  if(!slug){
-    alert("Slug missing.");
-    return;
-  }
+    if(!slug){
+      alert("Slug missing.");
+      return;
+    }
 
-  try{
+try{
 
-    const res = await fetch("/timings/save",{
-      method:"POST",
-      headers:{ "Content-Type":"application/json" },
-      body: JSON.stringify({
-        slug,
-        content: JSON.stringify(deck, null, 2)
-      })
+  // 🔥 SAFETY FIXES BEFORE SAVE
+
+  if(deck && deck.deck && deck.deck.length){
+
+    // ✅ fix first item visibility for all slides
+    deck.deck.forEach(slide => {
+      if(slide.data && slide.data.length){
+        slide.data[0].showAt = slide.start || 0;
+      }
     });
 
-    const data = await res.json();
+    // ✅ fix last slide end time
+    const lastSlide = deck.deck[deck.deck.length - 1];
 
-    status.textContent = data.message;
-
-    alert("Timings Saved!");
-
-  }catch(err){
-
-    status.textContent = "Save failed.";
+    if(audio && audio.duration){
+      lastSlide.end = Math.floor(audio.duration);
+    }
 
   }
+
+  const res = await fetch("/timings/save",{
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body: JSON.stringify({
+      slug,
+      content: JSON.stringify(deck, null, 2)
+    })
+  });
+
+  const data = await res.json();
+
+  status.textContent = data.message;
+
+  alert("Timings Saved!");
+
+}catch(err){
+
+  status.textContent = "Save failed.";
 
 }
 
-
+}
 /* PLAY */
 
 function playDeck(){

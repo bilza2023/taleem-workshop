@@ -10,6 +10,7 @@ import timerRoutes from "./routes/timer.routes.js";
 import playerRoutes from "./routes/player.routes.js";
 import createRoutes from "./routes/create.routes.js";
 import imagesRoutes from "./routes/images.routes.js";
+// import editorUi from "./routes/editorUi.routes.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -23,6 +24,12 @@ app.use(express.urlencoded({ extended: true }));
 // static assets
 app.use(express.static(path.join(__dirname, "../public")));
 app.use("/node_modules", express.static("node_modules"));
+// app.use(
+//   "/editor-component",
+//   express.static(
+//     "/home/bilal-tariq/00--TALEEM/taleem-workshop/editor-component"
+//   )
+// );
 // ejs
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -36,6 +43,7 @@ app.use("/timings", timerRoutes);
 app.use("/player", playerRoutes);
 app.use('/create', createRoutes);
 app.use('/images', imagesRoutes);
+// app.use('/editor-ui', editorUi);
 
 
 app.listen(PORT, () => {

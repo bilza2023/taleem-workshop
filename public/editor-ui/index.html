@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body { margin: 0; }
+
+    .app {
+      background: #111;
+      color: #eee;
+      min-height: 100vh;
+      font-family: system-ui;
+    }
+
+    .time-bar {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      padding: 12px;
+      border-bottom: 1px solid #333;
+      background: #1a1a1a;
+    }
+
+    input {
+      width: 80px;
+      background: #000;
+      color: #fff;
+      border: 1px solid #333;
+      padding: 4px;
+    }
+
+    button {
+      background: #222;
+      color: #fff;
+      border: 1px solid #444;
+      padding: 4px 10px;
+      cursor: pointer;
+    }
+
+    button:hover { background: #333; }
+  </style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <div class="time-bar">
+    <span>⏱ Time:</span>
+    <input id="timeInput" type="number" value="0" />
+    <button onclick="inc()">➕</button>
+    <button onclick="dec()">➖</button>
+  </div>
+
+  <div id="editor-root"></div>
+
+</div>
+
+
+<script>
+    window.__CURRENT_TIME__ = 0;
+  
+    // ⭐ THIS IS REQUIRED
+    window.__GET_TIME__ = () => window.__CURRENT_TIME__;
+  
+    function inc() {
+      window.__CURRENT_TIME__++;
+      document.getElementById("timeInput").value = window.__CURRENT_TIME__;
+    }
+  
+    function dec() {
+      window.__CURRENT_TIME__--;
+      document.getElementById("timeInput").value = window.__CURRENT_TIME__;
+    }
+  </script>
+
+
+
+<!-- ✅ IMPORTANT: paths from /public -->
+<link rel="stylesheet" href="/editor-component/assets/editor.css">
+<script type="module" src="/editor-component/js/editor.js"></script>
+
+</body>
+</html>
