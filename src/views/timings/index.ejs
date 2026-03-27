@@ -84,7 +84,7 @@ audio.ontimeupdate = () => {
 
 async function loadDeck(){
 
-  const res = await fetch(`/content/decks/${slug}.json`);
+  const res = await fetch(`/workspace/timings/${slug}.json`);
 
   if(!res.ok){
     slidesDiv.innerHTML = "Deck not found";

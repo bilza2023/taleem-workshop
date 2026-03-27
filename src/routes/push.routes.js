@@ -40,5 +40,40 @@ router.get("/push-to-timings", (req, res) => {
     return res.send("❌ Push failed: " + err.message);
   }
 });
+router.get("/push-to-archive", (req, res) => {
+  const { deck } = req.query;
+
+  if (!deck) {
+    return res.send("❌ Missing deck slug");
+  }
+
+  const timingsPath = path.join(
+    process.cwd(),
+    "public/workspace/timings",
+    `${deck}.json`
+  );
+
+  const archivePath = path.join(
+    process.cwd(),
+    "public/workspace/archive",
+    `${deck}.json`
+  );
+
+  // check source exists (same pattern as above route)
+  if (!fs.existsSync(timingsPath)) {
+    return res.send("❌ Deck not found in timings");
+  }
+
+  try {
+    // ✅ MOVE file (NOT copy)
+    fs.renameSync(timingsPath, archivePath);
+
+    return res.redirect("/?stage=archive");
+
+  } catch (err) {
+    return res.send("❌ Push to archive failed: " + err.message);
+  }
+});
+
 
 export default router;

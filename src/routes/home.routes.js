@@ -11,7 +11,7 @@ const __dirname = path.dirname(__filename);
 // ✅ directories
 const slidesDir = path.join(__dirname, "../../public/workspace/slides");
 const timingsDir = path.join(__dirname, "../../public/workspace/timings");
-const decksDir = path.join(__dirname, "../../public/content/decks");
+const decksDir = path.join(__dirname, "../../public/workspace/archive");
 
 // ✅ helper
 function readDirSafe(dir) {

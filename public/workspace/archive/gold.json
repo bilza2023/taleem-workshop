@@ -8,14 +8,14 @@
   },
   "deck": [
     {
-      "start": 0,
+      "start": 2,
       "end": 10,
       "type": "titleAndSubtitle",
       "data": [
         {
           "name": "title",
           "content": "This is the first Demo Deck",
-          "showAt": 0
+          "showAt": 2
         },
         {
           "name": "subtitle",
@@ -26,7 +26,7 @@
     },
     {
       "start": 10,
-      "end": 15,
+      "end": 141,
       "type": "bulletList",
       "data": [
         {

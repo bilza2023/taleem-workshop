@@ -153,8 +153,7 @@ body{
 
         <% if(currentStage === "timings"){ %>
           <a href="/timings?deck=<%= slug %>">Open</a>
-          <!-- future -->
-          <!-- <a href="/complete-timings?deck=<%= slug %>">Complete</a> -->
+          <a href="/push/push-to-archive?deck=<%= slug %>">Push</a>
         <% } %>
 
         <% if(currentStage === "archive"){ %>
