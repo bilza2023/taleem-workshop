@@ -10,6 +10,7 @@ import timerRoutes from "./routes/timer.routes.js";
 import playerRoutes from "./routes/player.routes.js";
 import createRoutes from "./routes/create.routes.js";
 import imagesRoutes from "./routes/images.routes.js";
+import pushRoutes from "./routes/push.routes.js";
 // import editorUi from "./routes/editorUi.routes.js";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -38,6 +39,7 @@ app.use("/timings", timerRoutes);
 app.use("/player", playerRoutes);
 app.use('/create', createRoutes);
 app.use('/images', imagesRoutes);
+app.use('/push', pushRoutes);
 // app.use('/editor-ui', editorUi);
 
 
