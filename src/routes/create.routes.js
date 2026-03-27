@@ -11,13 +11,11 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 /* content folders */
-const decksDir = path.join(__dirname, "../../public/content/decks");
-const imagesDir = path.join(__dirname, "../../public/content/images");
+const decksDir = path.join(__dirname, "../../public/workspace/slides");
 const audioDir = path.join(__dirname, "../../public/content/audio");
 
 /* ensure folders exist */
 fs.mkdirSync(decksDir, { recursive: true });
-fs.mkdirSync(imagesDir, { recursive: true });
 fs.mkdirSync(audioDir, { recursive: true });
 
 /* multer temp upload */
@@ -26,7 +24,6 @@ const upload = multer({ dest: "uploads/" });
 /* allowed extensions */
 const deckExt = [".json"];
 const audioExt = [".mp3", ".opus"];
-const imageExt = [".png", ".jpg", ".jpeg", ".webp", ".gif", ".svg", ".avif"];
 
 /* extension helper */
 function hasValidExt(filename, allowed) {
@@ -34,13 +31,10 @@ function hasValidExt(filename, allowed) {
   return allowed.includes(ext);
 }
 
-
 /* PAGE */
-
 router.get("/", (req, res) => {
   res.render("create/index", { query: req.query });
 });
-
 
 /* CREATE DECK */
 
@@ -115,55 +109,6 @@ router.post("/delete-deck", (req, res) => {
   } catch (err) {
     console.error(err);
     res.redirect("/create?msg=Error deleting deck");
-  }
-});
-
-
-/* UPLOAD IMAGE */
-
-router.post("/upload-image", upload.single("image"), (req, res) => {
-  try {
-
-    if (!req.file) {
-      return res.redirect("/create?msg=No image uploaded");
-    }
-
-    if (!hasValidExt(req.file.originalname, imageExt)) {
-      fs.unlinkSync(req.file.path);
-      return res.redirect("/create?msg=Invalid image format");
-    }
-
-    const target = path.join(imagesDir, req.file.originalname);
-
-    fs.renameSync(req.file.path, target);
-
-    res.redirect("/create?msg=Image uploaded");
-
-  } catch (err) {
-    console.error(err);
-    res.redirect("/create?msg=Error uploading image");
-  }
-});
-
-
-/* DELETE IMAGE */
-
-router.post("/delete-image", (req, res) => {
-  try {
-
-    const file = path.join(imagesDir, req.body.filename);
-
-    if (!fs.existsSync(file)) {
-      return res.redirect("/create?msg=Image not found");
-    }
-
-    fs.unlinkSync(file);
-
-    res.redirect("/create?msg=Image deleted");
-
-  } catch (err) {
-    console.error(err);
-    res.redirect("/create?msg=Error deleting image");
   }
 });
 

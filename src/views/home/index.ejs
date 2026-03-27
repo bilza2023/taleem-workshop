@@ -2,185 +2,174 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Deck Library</title>
+<title>Taleem Pipeline</title>
 
 <style>
-
 body{
   margin:0;
   background:#0f0f0f;
   color:#eee;
-  font-family:system-ui, -apple-system, Arial;
+  font-family:system-ui, Arial;
 }
 
 .container{
   max-width:1100px;
   margin:auto;
-  padding:40px 20px;
+  padding:30px 20px;
 }
 
+/* 🔝 stage nav */
+.stage-nav{
+  display:flex;
+  gap:10px;
+  margin-bottom:20px;
+}
+
+.stage-nav a{
+  padding:10px 16px;
+  border-radius:6px;
+  text-decoration:none;
+  color:#aaa;
+  background:#1a1a1a;
+  border:1px solid #2a2a2a;
+}
+
+.stage-nav a.active{
+  background:#2c7be5;
+  color:white;
+}
+
+/* header */
 .header{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:20px;
+  margin-bottom:10px;
 }
 
 .count{
-  color:#aaa;
-  font-size:14px;
+  color:#777;
+  font-size:13px;
 }
 
-.search-box{
-  margin-bottom:20px;
-}
-
-.search-box input{
-  width:100%;
-  padding:12px 14px;
-  border-radius:8px;
-  border:1px solid #333;
-  background:#1a1a1a;
-  color:#eee;
-  font-size:14px;
-}
-
-.card{
+/* list */
+.list{
   background:#161616;
   border:1px solid #2a2a2a;
   border-radius:10px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.35);
   overflow:hidden;
 }
 
-table{
-  width:100%;
-  border-collapse:collapse;
-}
-
-thead{
-  background:#1f1f1f;
-}
-
-th{
-  text-align:left;
-  padding:14px;
-  font-size:13px;
-  color:#aaa;
-}
-
-td{
+.row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
   padding:14px;
   border-top:1px solid #2a2a2a;
 }
 
-tr:hover{
+.row:first-child{
+  border-top:none;
+}
+
+.row:hover{
   background:#1b1b1b;
 }
 
-.serial{
-  width:60px;
-  color:#777;
+.slug{
+  font-weight:500;
 }
 
 .actions a{
-  margin-right:14px;
+  margin-left:12px;
+  font-size:13px;
   color:#7db3ff;
   text-decoration:none;
-  font-size:14px;
 }
 
 .actions a:hover{
   text-decoration:underline;
 }
 
-.deck{
-  font-weight:500;
+.empty{
+  padding:20px;
+  color:#777;
 }
-
 </style>
-
 </head>
 
 <body>
 
 <%- include('../partials/nav') %>
 
+<%
+  const currentStage = stage || "slides";
+
+  const list =
+    currentStage === "slides" ? slides :
+    currentStage === "timings" ? timings :
+    archive;
+%>
+
 <div class="container">
 
+<!-- 🔝 NAV -->
+<div class="stage-nav">
+  <a href="/?stage=slides" class="<%= currentStage==='slides'?'active':'' %>">Slides</a>
+  <a href="/?stage=timings" class="<%= currentStage==='timings'?'active':'' %>">Timings</a>
+  <a href="/?stage=archive" class="<%= currentStage==='archive'?'active':'' %>">Archive</a>
+</div>
+
+<!-- HEADER -->
 <div class="header">
-<h2>Deck Library</h2>
-<div class="count">
-Total decks: <strong><%= decks.length %></strong>
-</div>
+  <h2><%= currentStage.toUpperCase() %></h2>
+  <div class="count">Total: <%= list.length %></div>
 </div>
 
-<div class="search-box">
-<input type="text" id="search" placeholder="Search decks...">
-</div>
+<!-- LIST -->
+<div class="list">
 
-<div class="card">
+  <% if(list.length === 0){ %>
+    <div class="empty">No decks</div>
+  <% } %>
 
-<table id="deckTable">
+  <% list.forEach((slug, index) => { %>
+    
+    <div class="row">
+      
+      <div class="slug">
+        <%= index + 1 %>. <%= slug %>
+      </div>
 
-<thead>
-<tr>
-<th class="serial">#</th>
-<th>Deck</th>
-<th>Actions</th>
-</tr>
-</thead>
+      <div class="actions">
 
-<tbody>
+        <% if(currentStage === "slides"){ %>
+          <a href="/editor?deck=<%= slug %>">Edit</a>
+          <a href="/editor-ui?deck=<%= slug %>">Edit-UI</a>
+          <a href="/player?deck=<%= slug %>&source=slides">Play</a>
+          <!-- future -->
+          <!-- <a href="/complete-slides?deck=<%= slug %>">Complete</a> -->
+        <% } %>
 
-<% decks.forEach((deck,index) => { %>
+        <% if(currentStage === "timings"){ %>
+          <a href="/timings?deck=<%= slug %>">Open</a>
+          <!-- future -->
+          <!-- <a href="/complete-timings?deck=<%= slug %>">Complete</a> -->
+        <% } %>
 
-<tr>
-<td class="serial"><%= index + 1 %></td>
+        <% if(currentStage === "archive"){ %>
+          <a href="/player?deck=<%= slug %>" target="_blank">Play</a>
+        <% } %>
 
-<td class="deck"><%= deck %></td>
+      </div>
 
-<td class="actions">
+    </div>
 
-<a href="/editor?deck=<%= deck %>">Editor</a>
-<a href="/timings?deck=<%= deck %>">Timings</a>
-
-<a href="/player?deck=<%= deck %>" target="_blank">Player</a>
-
-</td>
-
-</tr>
-
-<% }) %>
-
-</tbody>
-
-</table>
+  <% }) %>
 
 </div>
 
 </div>
-
-<script>
-
-const searchInput = document.getElementById("search");
-const rows = document.querySelectorAll("#deckTable tbody tr");
-
-searchInput.addEventListener("keyup", function(){
-
-  const term = this.value.toLowerCase();
-
-  rows.forEach(row => {
-
-    const text = row.innerText.toLowerCase();
-
-    row.style.display = text.includes(term) ? "" : "none";
-
-  });
-
-});
-
-</script>
 
 </body>
 </html>

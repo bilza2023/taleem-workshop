@@ -3,7 +3,7 @@ import path from "path";
 import TaleemBuilder from "taleem-builder";
 
 const builderDir = "/home/bilal-tariq/00--TALEEM/taleem-workshop/builder-decks";
-const outputDir  = "/home/bilal-tariq/00--TALEEM/taleem-workshop/public/content/decks";
+const outputDir  = "/home/bilal-tariq/00--TALEEM/taleem-workshop/public/workspace/slides";
 
 const files = fs.readdirSync(builderDir);
 

@@ -45,9 +45,24 @@ import { createTaleemPlayer,getDeckEndTime,resolveAssetPaths } from "/js/taleem-
 import { getTimer } from "/js/getTimer.js";
 
 const deckSlug = "<%= deck %>";
+const source = "<%= source %>";
 
 async function init(){
-  const res = await fetch(`/content/decks/${deckSlug}.json`);
+  // const res = await fetch(`/content/decks/${deckSlug}.json`);
+  let basePath = "/workspace/slides"; // default
+
+if(source === "timings"){
+  basePath = "/workspace/timings";
+}
+else if(source === "decks"){
+  basePath = "/content/decks";
+}
+else if(source === "slides"){
+  basePath = "/workspace/slides";
+}
+
+const res = await fetch(`${basePath}/${deckSlug}.json`);
+
   const deck = await res.json();
 
 ///////////////////////////////////////////////

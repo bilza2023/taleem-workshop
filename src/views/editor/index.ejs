@@ -110,74 +110,80 @@ const status = document.getElementById("status");
 
 slugLabel.textContent = slug || "(new deck)";
 
+
 async function loadDeck(){
 
-  if(!slug){
-    editor.value = "{\n\n}";
+if(!slug){
+  editor.value = "{\n\n}";
+  return;
+}
+
+try{
+
+  const res = await fetch(`/workspace/slides/${slug}.json`);
+
+  if(!res.ok){
+    status.textContent = "Deck not found.";
     return;
   }
 
-  try{
+  const text = await res.text();
 
-    const res = await fetch(`/content/decks/${slug}.json`);
+  editor.value = text;
 
-    if(!res.ok){
-      status.textContent = "Deck not found.";
-      return;
-    }
+  status.textContent = "Deck loaded.";
 
-    const text = await res.text();
+}catch(err){
 
-    editor.value = text;
+  status.textContent = "Error loading deck.";
 
-    status.textContent = "Deck loaded.";
-
-  }catch(err){
-
-    status.textContent = "Error loading deck.";
-
-  }
+}
 
 }
 
 async function saveDeck(){
-debugger;
-  if(!slug){
-    alert("Slug missing.");
-    return;
+
+if(!slug){
+  alert("Slug missing.");
+  return;
+}
+
+try{
+
+  const res = await fetch("/editor/save",{
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body: JSON.stringify({
+      slug,
+      content: editor.value
+    })
+  });
+
+  const data = await res.json();
+
+  status.textContent = data.message;
+
+  if(data.message === "Deck saved."){
+    alert("Deck Saved!");
+  }else{
+    alert(data.message);
   }
 
-  try{
+}catch(err){
 
-    const res = await fetch("/editor/save",{
-      method:"POST",
-      headers:{ "Content-Type":"application/json" },
-      body: JSON.stringify({
-        slug,
-        content: editor.value
-      })
-    });
-
-    const data = await res.json();
-
-    status.textContent = data.message;
-   alert("Deck Saved!");
-  }catch(err){
-
-    status.textContent = "Save failed.";
-
-  }
+  status.textContent = "Save failed.";
+  alert("Save failed.");
 
 }
 
+}
 function playDeck(){
 
-  if(!slug) return;
+if(!slug) return;
 
-  window.open(`/player/?deck=${slug}`, "_blank");
+window.open(`/player/?deck=${slug}&source=slides`, "_blank");
 
 }
-
 loadDeck();
 
 </script>
