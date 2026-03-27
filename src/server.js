@@ -11,7 +11,7 @@ import playerRoutes from "./routes/player.routes.js";
 import createRoutes from "./routes/create.routes.js";
 import imagesRoutes from "./routes/images.routes.js";
 import pushRoutes from "./routes/push.routes.js";
-// import editorUi from "./routes/editorUi.routes.js";
+import editorUiRoutes from "./routes/editorUi.routes.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -31,8 +31,7 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 // routes
-app.use("/", homeRoutes);
-app.use("/dashboard", dashboardRoutes);
+app.use('/ui', editorUiRoutes);   // 👈 FIRST
 app.use("/editor", editorRoutes);
 app.use("/builder", builderRoutes);
 app.use("/timings", timerRoutes);
@@ -40,7 +39,8 @@ app.use("/player", playerRoutes);
 app.use('/create', createRoutes);
 app.use('/images', imagesRoutes);
 app.use('/push', pushRoutes);
-// app.use('/editor-ui', editorUi);
+
+app.use("/", homeRoutes);          // 👈 ALWAYS LAST
 
 
 app.listen(PORT, () => {

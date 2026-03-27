@@ -12,76 +12,57 @@
       min-height: 100vh;
       font-family: system-ui;
     }
-
-    .time-bar {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      padding: 12px;
-      border-bottom: 1px solid #333;
-      background: #1a1a1a;
-    }
-
-    input {
-      width: 80px;
-      background: #000;
-      color: #fff;
-      border: 1px solid #333;
-      padding: 4px;
-    }
-
-    button {
-      background: #222;
-      color: #fff;
-      border: 1px solid #444;
-      padding: 4px 10px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background: #333;
-    }
   </style>
 </head>
 
 <body>
 
 <div class="app">
-
-  <!-- TIME BAR -->
-  <div class="time-bar">
-    <span>⏱ Time:</span>
-    <input id="timeInput" type="number" value="0" />
-    <button onclick="inc()">➕</button>
-    <button onclick="dec()">➖</button>
-  </div>
-
-  <!-- EDITOR -->
+  <!-- EDITOR ROOT -->
   <div id="editor-root"></div>
-
 </div>
 
 <script>
-  // ✅ GLOBAL TIME
-  window.__CURRENT_TIME__ = 0;
+  // ✅ Inject deck (always object, never string)
+  window.__DECK__ = <%- deck ? JSON.stringify(deck) : JSON.stringify({ deck: [] }) %>;
 
-  function inc() {
-    window.__CURRENT_TIME__++;
-    document.getElementById("timeInput").value = window.__CURRENT_TIME__;
+  // ✅ Inject slug for save API
+  window.__SLUG__ = "<%= slug || '' %>";
+
+  // ✅ Callback — fired by the editor when it exports/saves the deck
+  // window.__ON_SAVE__ = function(deck) {
+  //   console.log("SAVE CALLBACK — deck returned from editor:", deck);
+  // };
+  window.__ON_SAVE__ = async function(deck) {
+  const slug = window.__SLUG__;
+
+  try {
+    const res = await fetch("/ui/save", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ slug, deck })
+    });
+
+    const data = await res.json();
+
+    console.log("SAVE RESPONSE:", data);
+  } catch (err) {
+    console.error("SAVE FAILED:", err);
   }
+};
 
-  function dec() {
-    window.__CURRENT_TIME__--;
-    document.getElementById("timeInput").value = window.__CURRENT_TIME__;
-  }
 
-  // ✅ SAFE DECK INJECTION (NO stringify issues)
-  window.__DECK__ = <%- deck ? JSON.stringify(deck) : '{"deck":[]}' %>;
-
+  // Debug (optional)
   console.log("DECK:", window.__DECK__);
+  console.log("SLUG:", window.__SLUG__);
 </script>
 
+<!-- Editor styles -->
 <link rel="stylesheet" href="/editor-component/assets/editor.css">
+
+<!-- Mount script (already handles everything) -->
 <script type="module" src="/editor-component/js/editor.js"></script>
 
 </body>

@@ -60,6 +60,9 @@ else if(source === "decks"){
 else if(source === "slides"){
   basePath = "/workspace/slides";
 }
+else if(source === "archive"){
+  basePath = "/workspace/archive";
+}
 
 const res = await fetch(`${basePath}/${deckSlug}.json`);
 

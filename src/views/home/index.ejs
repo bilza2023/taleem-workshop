@@ -145,7 +145,7 @@ body{
 
         <% if(currentStage === "slides"){ %>
           <a href="/editor?deck=<%= slug %>">Edit</a>
-          <a href="/editor-ui?deck=<%= slug %>">Edit-UI</a>
+          <a href="/ui?deck=<%= slug %>">Edit-UI</a>
           <a href="/player?deck=<%= slug %>&source=slides">Play</a>
           <a href="/push/push-to-timings?deck=<%= slug %>">Push</a>
           
@@ -157,7 +157,7 @@ body{
         <% } %>
 
         <% if(currentStage === "archive"){ %>
-          <a href="/player?deck=<%= slug %>" target="_blank">Play</a>
+          <a href="/player?deck=<%= slug %>&source=archive" target="_blank">Play</a>
         <% } %>
 
       </div>
